@@ -1,0 +1,24 @@
+# CREAR EL POD
+podman pod create --name pod-wiki -p 80:3000
+
+
+
+# CREAR BASE DE DATOS
+podman run -d --name db-wiki --pod pod-wiki \
+  --cpus="0.5" --memory="256m" \
+  -e POSTGRES_DB=wiki \
+  -e POSTGRES_USER=wiki_user \
+  -e POSTGRES_PASSWORD=contrasena_esan \
+  docker.io/library/postgres:15-alpine
+
+
+
+# CREACION DE LA WIKI
+podman run -d --name app-wiki --pod pod-wiki \
+  -e DB_TYPE=postgres \
+  -e DB_HOST=localhost \
+  -e DB_PORT=5432 \
+  -e DB_USER=wiki_user \
+  -e DB_PASS=contrasena_esan \
+  -e DB_NAME=wiki \
+  ghcr.io/requarks/wiki:2
