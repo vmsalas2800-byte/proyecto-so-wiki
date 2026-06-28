@@ -1,24 +1,46 @@
-# CREAR EL POD
-podman pod create --name pod-wiki -p 80:3000
+### PRERREQUISITOS DE ENTORNO
+# Sistema Operativo: Ubuntu 24.04 LTS
+# Instalación de Podman:
+#    sudo apt update && sudo apt install -y podman
 
 
-
-# CREAR BASE DE DATOS
-podman run -d --name db-wiki --pod pod-wiki \
-  --cpus="0.5" --memory="256m" \
-  -e POSTGRES_DB=wiki \
-  -e POSTGRES_USER=wiki_user \
-  -e POSTGRES_PASSWORD=contrasena_esan \
-  docker.io/library/postgres:15-alpine
+### CREAR EL POD
+# podman pod create --name pod-wiki -p 80:3000
 
 
+### CREAR BASE DE DATOS
+# podman run -d --name db-wiki --pod pod-wiki \
+#   --cpus="0.5" --memory="256m" \
+#   -e POSTGRES_DB=wiki \
+#   -e POSTGRES_USER=wiki_user \
+#   -e POSTGRES_PASSWORD=contrasena_esan \
+#   docker.io/library/postgres:15-alpine
 
-# CREACION DE LA WIKI
-podman run -d --name app-wiki --pod pod-wiki \
-  -e DB_TYPE=postgres \
-  -e DB_HOST=localhost \
-  -e DB_PORT=5432 \
-  -e DB_USER=wiki_user \
-  -e DB_PASS=contrasena_esan \
-  -e DB_NAME=wiki \
-  ghcr.io/requarks/wiki:2
+
+### CREACION DE LA WIKI
+# podman run -d --name app-wiki --pod pod-wiki \
+#   -e DB_TYPE=postgres \
+#   -e DB_HOST=localhost \
+#   -e DB_PORT=5432 \
+#   -e DB_USER=wiki_user \
+#   -e DB_PASS=contrasena_esan \
+#   -e DB_NAME=wiki \
+#   ghcr.io/requarks/wiki:2
+
+
+### VERIFICACIÓNES
+# 1. Verificar que el pod y contenedores estén corriendo:
+# podman ps
+# 2. Verificar los logs de la aplicación para confirmar conexión a la BD:
+podman logs app-wiki
+# 3. Verificar el uso de recursos tras la instalación:
+podman stats --no-stream
+
+
+### NOTAS DE MANTENIMIENTO
+# Para detener el servicio sin eliminar datos: 
+# podman pod stop pod-wiki
+# Para iniciar el servicio nuevamente: 
+# podman pod start pod-wiki
+# NOTA: La base de datos persistirá los datos siempre que los contenedores 
+# no sean eliminados con "podman pod rm -f pod-wiki"
