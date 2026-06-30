@@ -57,13 +57,14 @@ Para validar el comportamiento del kernel bajo los contenedores, se ejecutaron:
 2.  **Aislamiento de Procesos (PID Namespaces):** Observación de la jerarquía *fork/exec*: podman top db-wiki
 3.  **Inspección del Kernel (/proc):** Identificación del PID real en el host y su mapa de memoria virtual:
     
-   PID=$(podman inspect db-wiki --format '{{.State.Pid}}')
+   PID = ( podman inspect db-wiki --format '{{.State.Pid}}' )
    cat /proc/$PID/maps | head -n 10
+   lsns | grep $(podman inspect --format '{{.State.Pid}}' db-wiki)
     
 
 ## Resultados del Experimento de Carga
 Se realizó una prueba de carga concurrente para observar la respuesta de los recursos.
-*   **CPU app-wiki:** Incrementó de **1.60%** a **31.03%** bajo carga, estabilizándose inmediatamente después, lo que demuestra la eficiencia en la gestión de procesos del kernel.
+*   **CPU app-wiki:** Incrementó de **1.60%** a **31.03%** bajo carga, liberando recursos eficientemente y estabilizándose inmediatamente después de la carga.
 *   **Memoria db-wiki:** Se mantuvo estrictamente bajo el límite de **256MB**, protegiendo la estabilidad del host AWS ante picos de consumo.
 
 ## Conclusiones
