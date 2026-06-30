@@ -58,7 +58,9 @@ Para validar el comportamiento del kernel bajo los contenedores, se ejecutaron:
 3.  **Inspección del Kernel (/proc):** Identificación del PID real en el host y su mapa de memoria virtual:
     
    PID = ( podman inspect db-wiki --format '{{.State.Pid}}' )
+   
    cat /proc/$PID/maps | head -n 10
+   
    lsns | grep $(podman inspect --format '{{.State.Pid}}' db-wiki)
     
 
