@@ -61,3 +61,24 @@ podman stats --no-stream
 # podman pod start pod-wiki
 # NOTA: La base de datos persistirá los datos siempre que los contenedores 
 # no sean eliminados con "podman pod rm -f pod-wiki"
+
+
+### EN CASO FALLE
+# podman pod stop pod-wiki
+# podman pod rm pod-wiki
+# sudo sysctl -w net.ipv4.ip_unprivileged_port_start=80
+# podman pod create --name pod-wiki -p 80:3000
+# podman run -d --name db-wiki --pod pod-wiki \
+   --cpus="0.5" --memory="256m" \
+   -e POSTGRES_DB=wiki \
+   -e POSTGRES_USER=wiki_user \
+   -e POSTGRES_PASSWORD=contrasena_esan \
+   postgres:15-alpine
+# podman run -d --name app-wiki --pod pod-wiki \
+   -e DB_TYPE=postgres \
+   -e DB_HOST=localhost \
+   -e DB_PORT=5432 \
+   -e DB_USER=wiki_user \
+   -e DB_PASS=contrasena_esan \
+   -e DB_NAME=wiki \
+   ghcr.io/requarks/wiki:2
