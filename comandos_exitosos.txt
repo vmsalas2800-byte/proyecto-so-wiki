@@ -2,7 +2,11 @@
 # Sistema Operativo: Ubuntu 24.04 LTS
 # Instalación de Podman:
 #    sudo apt update && sudo apt install -y podman
-
+# Configuracion nombres cortos:
+#    sudo nano /etc/containers/registries.conf
+#    unqualified-search-registries = ["docker.io", "quay.io"]
+# Verificación:
+#    cat /etc/containers/registries.conf
 
 ### CREAR EL POD
 # podman pod create --name pod-wiki -p 80:3000
@@ -27,8 +31,21 @@
 #   -e DB_NAME=wiki \
 #   ghcr.io/requarks/wiki:2
 
+### INSTRUMENTACION
+# Medición de Cgroups: Verificación de límites en tiempo real:
+#    podman stats --no-stream
+# Aislamiento de Procesos (PID Namespaces): Observación de la jerarquía fork/exec:
+#    podman top db-wiki
+# Inspección del Kernel (/proc): Identificación del PID real en el host y su mapa de memoria virtual:
 
-### VERIFICACIÓNES
+#    PID = ( podman inspect db-wiki --format '{{.State.Pid}}' )
+
+#    cat /proc/$PID/maps | head -n 10
+
+#    lsns | grep $(podman inspect --format '{{.State.Pid}}' db-wiki)
+
+
+### VERIFICACIONES
 # 1. Verificar que el pod y contenedores estén corriendo:
 # podman ps
 # 2. Verificar los logs de la aplicación para confirmar conexión a la BD:
