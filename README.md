@@ -1,6 +1,6 @@
 # Wiki del Equipo - Wiki.js + PostgreSQL en Podman Pod
 
-Este proyecto consiste en el despliegue de una plataforma de documentación basada en **Wiki.js**, utilizando **PostgreSQL 15-alpine** como motor de base de datos. El despliegue se realiza bajo una arquitectura de contenedores **rootless** y **daemonless** utilizando **Podman** en una instancia AWS EC2 [5, 6].
+Este proyecto consiste en el despliegue de una plataforma de documentación basada en **Wiki.js**, utilizando **PostgreSQL 15-alpine** como motor de base de datos. El despliegue se realiza bajo una arquitectura de contenedores **rootless** y **daemonless** utilizando **Podman** en una instancia AWS EC2.
 
 ## Integrantes - Grupo 8
 * Ángel Guillermo Huaman Cardenas
