@@ -76,4 +76,5 @@ Se realizó una prueba de carga concurrente para observar la respuesta de los re
 
 ## Enlaces
 *   **Repositorio:** [https://github.com/vmsalas2800-byte/proyecto-so-wiki](https://github.com/vmsalas2800-byte/proyecto-so-wiki)
-*   **Video Demo:** [Enlace pendiente]
+*   **Video Demo:** [https://youtu.be/PnHIIc3mwmU](https://youtu.be/PnHIIc3mwmU)
+*   **Informe Tecnico:** [https://docs.google.com/document/d/1SXkabykLoacO0yo-9pd6vDDkH-rxFFLFdgD-65-mjCc/edit?usp=sharing](https://docs.google.com/document/d/1SXkabykLoacO0yo-9pd6vDDkH-rxFFLFdgD-65-mjCc/edit?usp=sharing)
